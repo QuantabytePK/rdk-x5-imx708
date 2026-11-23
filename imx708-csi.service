@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 QuantaByte Private Limited
+[Unit]
+Description=Camera Module 3 (IMX708) capture service
+# cam-service is the board's image processor daemon: the pipeline cannot be
+# built before it is up. (If it is slow, the first attempts fail and systemd
+# simply tries again.)
+After=local-fs.target hobot-modules-load.service cam-service.service
+Wants=cam-service.service
+
+[Service]
+ExecStart=/usr/local/bin/imx708-csi --mode full
+# Frames go out on time even while the client has every core busy.
+Nice=-5
+Restart=always
+RestartSec=3
+TimeoutStopSec=12
+KillMode=mixed
+
+[Install]
+WantedBy=multi-user.target

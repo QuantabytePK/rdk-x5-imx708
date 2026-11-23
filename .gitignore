@@ -1,0 +1,7 @@
+vendor/
+tuning/
+driver/libimx708.so
+csi/imx708-csi
+*.o
+__pycache__/
+.DS_Store

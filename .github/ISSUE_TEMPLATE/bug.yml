@@ -1,0 +1,20 @@
+name: Something does not work
+description: No picture, a build failure, wrong colours, focus trouble
+labels: [bug]
+body:
+  - type: input
+    attributes: {label: Board and RDK OS version, description: "Output of `cat /etc/version`, and which RDK X5", placeholder: "RDK X5 8 GB, 3.5.0"}
+    validations: {required: true}
+  - type: input
+    attributes: {label: hobot-camera version, description: "Output of `dpkg -l hobot-camera | tail -1`"}
+    validations: {required: true}
+  - type: input
+    attributes: {label: Camera module and connector, placeholder: "Camera Module 3 standard, first CSI connector, 200 mm ribbon"}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: What happened, description: What you did, what you expected, what you got}
+    validations: {required: true}
+  - type: textarea
+    attributes: {label: Service log, description: "Output of `journalctl -u imx708-csi -n 50 --no-pager`", render: text}
+  - type: textarea
+    attributes: {label: Camera check, description: "Output of `python3 examples/imx708_cam.py --info`", render: text}

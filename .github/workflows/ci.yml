@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Scripts parse, licence tags present
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - name: Python compiles
+        run: python3 -m compileall -q tools examples
+      - name: Shell scripts parse
+        run: bash -n install.sh
+      - name: C sources are well formed (no board libraries here, so syntax of our own headers only)
+        run: gcc -fsyntax-only -Wall csi/imx708_csi_shm.h driver/inc/imx708_setting.h
+      - name: Every source file carries its licence tag
+        run: |
+          missing=$(git ls-files '*.c' '*.h' '*.py' '*.sh' '*Makefile' | xargs grep -L "SPDX-License-Identifier" || true)
+          if [ -n "$missing" ]; then echo "No SPDX tag in:"; echo "$missing"; exit 1; fi
