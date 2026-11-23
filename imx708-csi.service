@@ -3,13 +3,17 @@
 [Unit]
 Description=Camera Module 3 (IMX708) capture service
 # cam-service is the board's image processor daemon: the pipeline cannot be
-# built before it is up. (If it is slow, the first attempts fail and systemd
-# simply tries again.)
-After=local-fs.target hobot-modules-load.service cam-service.service
+# built before it is up. It must NOT be named in After= here: the vendor
+# unit is itself ordered after multi-user.target, so "after cam-service,
+# wanted by multi-user" is a loop, and systemd breaks the loop by silently
+# dropping this service at boot. The wait is done inside ExecStart instead,
+# and not in an ExecStartPre: that holds up multi-user.target, which
+# cam-service is itself waiting for, and boot then stalls for a minute.
+After=local-fs.target hobot-modules-load.service
 Wants=cam-service.service
 
 [Service]
-ExecStart=/usr/local/bin/imx708-csi --mode full
+ExecStart=/bin/sh -c 'for i in $(seq 240); do systemctl is-active -q cam-service && break; sleep 0.5; done; sleep 2; exec /usr/local/bin/imx708-csi --mode full'
 # Frames go out on time even while the client has every core busy.
 Nice=-5
 Restart=always
