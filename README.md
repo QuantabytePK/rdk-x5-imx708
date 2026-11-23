@@ -173,6 +173,13 @@ lands one step away from the sharpest place, which looks like a lens that
 first frame arrives after 3.1 s and exposure and colour are steady after
 5.3 s. Leave the service running and read frames when you need them.
 
+**Do not order your service after `cam-service`.** The vendor unit is
+ordered after `multi-user.target`. A service that is "after cam-service" and
+"wanted by multi-user.target" closes a loop, and systemd breaks the loop by
+dropping your service at boot, with one line in the journal (`Found ordering
+cycle`). It looks like a camera that works until the first reboot. Wait for
+`cam-service` inside `ExecStart` instead, as `imx708-csi.service` does.
+
 **The camera is powered by its enable pin.** Between runs the pin is low and
 the sensor does not answer on I2C. That is not a fault.
 
