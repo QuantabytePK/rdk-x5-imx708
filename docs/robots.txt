@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quantabytepk.github.io/rdk-x5-imx708/sitemap.xml
