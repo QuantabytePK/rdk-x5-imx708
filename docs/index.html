@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RDK X5 IMX708 driver: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5</title>
+<meta name="description" content="Open source RDK X5 IMX708 camera driver. Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5: sensor driver, ISP tuning, capture service and autofocus lens control.">
+<meta name="keywords" content="RDK X5, IMX708, Camera Module 3, D-Robotics, Raspberry Pi camera, MIPI CSI, autofocus, driver">
+<link rel="canonical" href="https://quantabytepk.github.io/rdk-x5-imx708/">
+<meta property="og:title" content="RDK X5 IMX708 driver: Camera Module 3 on the RDK X5">
+<meta property="og:description" content="Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5. Open source driver, capture service and autofocus.">
+<meta property="og:url" content="https://quantabytepk.github.io/rdk-x5-imx708/">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"rdk-x5-imx708",
+"description":"Raspberry Pi Camera Module 3 (Sony IMX708) driver for the D-Robotics RDK X5",
+"codeRepository":"https://github.com/QuantabytePK/rdk-x5-imx708","programmingLanguage":["C","Python","Shell"],
+"author":{"@type":"Organization","name":"QuantaByte Private Limited"}}
+</script>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#555;--accent:#0b6b3a;--card:#f4f6f5}
+@media (prefers-color-scheme:dark){:root{--bg:#121413;--fg:#e8ece9;--muted:#a3aaa6;--accent:#5fcf93;--card:#1d211f}}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:760px;margin:0 auto;padding:40px 16px}
+h1{font-size:1.9rem;line-height:1.25;margin:0 0 12px}
+h2{font-size:1.25rem;margin-top:2em}
+p,li{color:var(--fg)} .lead{color:var(--muted);font-size:1.1rem}
+a{color:var(--accent)} code,pre{background:var(--card);border-radius:6px}
+code{padding:2px 5px} pre{padding:14px;overflow-x:auto}
+.btn{display:inline-block;margin-top:12px;padding:10px 18px;border-radius:8px;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600}
+table{border-collapse:collapse;width:100%} td{border-top:1px solid var(--card);padding:6px 4px;vertical-align:top}
+</style>
+</head>
+<body><main>
+<h1>RDK X5 IMX708 driver: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5</h1>
+<p class="lead">The RDK X5 does not ship a driver for the Sony IMX708 sensor of the Raspberry Pi Camera Module 3. This open source project adds one: a sensor driver for the X5 camera framework, ISP tuning, a capture service that keeps the camera streaming, and control of the autofocus lens.</p>
+<a class="btn" href="https://github.com/QuantabytePK/rdk-x5-imx708">Get it on GitHub</a>
+
+<h2>What works</h2>
+<table>
+<tr><td>4096 x 2592 at 14 fps (full resolution)</td><td>works</td></tr>
+<tr><td>2304 x 1296 at 30 fps (2x2 binned, full field of view)</td><td>works</td></tr>
+<tr><td>Auto exposure and auto white balance (board ISP)</td><td>works</td></tr>
+<tr><td>Autofocus lens motor, positions 0 to 1023</td><td>works</td></tr>
+<tr><td>Contrast autofocus</td><td>example included</td></tr>
+</table>
+
+<h2>Tested on</h2>
+<p>RDK X5 (8 GB), RDK OS 3.5.0 (Ubuntu 22.04, kernel 6.1.83), Camera Module 3 standard lens, with the 22-pin to 15-pin ribbon, first CSI connector.</p>
+
+<h2>Install</h2>
+<p>Full steps, troubleshooting (including the <code>phy_fatal</code> no-picture error from a half-seated ribbon) and notes are in the <a href="https://github.com/QuantabytePK/rdk-x5-imx708#readme">README</a>.</p>
+
+<h2>Common questions</h2>
+<p><strong>Does the Raspberry Pi Camera Module 3 work on the RDK X5?</strong> Yes, with this driver. Out of the box the RDK X5 does not support the IMX708.</p>
+<p><strong>Does autofocus work?</strong> The lens motor is driven from the X5; focus is found by stepping the lens and measuring sharpness. An example is included.</p>
+<p><strong>Why no 4608 px wide frames?</strong> The sensor and MIPI link deliver them, but the X5 image processor gives no frames above 4096 wide.</p>
+
+<p style="color:var(--muted);margin-top:3em">By QuantaByte Private Limited. Apache-licensed open source; see the repository for licence details.</p>
+</main></body></html>

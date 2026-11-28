@@ -1,5 +1,7 @@
 # Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5
 
+**RDK X5 IMX708 camera driver.** Use the Raspberry Pi Camera Module 3 with the RDK X5: an imx708 driver for the RDK X5 camera framework (also searched as "RDK X5 IMX708", "Camera Module 3 RDK X5", "imx708 driver rdk x5", "RDK X5 Pi camera 3 autofocus").
+
 The RDK X5 ships with drivers for a fixed list of camera sensors, and the
 IMX708 of the Raspberry Pi Camera Module 3 is not one of them. This
 repository adds it: a sensor driver for the X5 camera framework, tuning files
