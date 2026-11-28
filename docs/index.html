@@ -4,58 +4,191 @@
 <meta charset="utf-8">
 <meta name="google-site-verification" content="Fp9a25bSElSGbtwqqTCDk1qyE4ONjOBuwQ9MAr9Vgag" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>RDK X5 IMX708 driver: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5</title>
-<meta name="description" content="Open source RDK X5 IMX708 camera driver. Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5: sensor driver, ISP tuning, capture service and autofocus lens control.">
-<meta name="keywords" content="RDK X5, IMX708, Camera Module 3, D-Robotics, Raspberry Pi camera, MIPI CSI, autofocus, driver">
+<title>RDK X5 IMX708 driver: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5 | QuantaByte</title>
+<meta name="description" content="Open source RDK X5 IMX708 camera driver by QuantaByte and Malik Zohaib Mustafa. Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5: sensor driver, ISP tuning, capture service and autofocus.">
+<meta name="author" content="Malik Zohaib Mustafa">
 <link rel="canonical" href="https://quantabytepk.github.io/rdk-x5-imx708/">
-<meta property="og:title" content="RDK X5 IMX708 driver: Camera Module 3 on the RDK X5">
-<meta property="og:description" content="Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5. Open source driver, capture service and autofocus.">
-<meta property="og:url" content="https://quantabytepk.github.io/rdk-x5-imx708/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231f7a4d'/%3E%3Ccircle cx='32' cy='32' r='14' fill='none' stroke='white' stroke-width='6'/%3E%3Ccircle cx='32' cy='32' r='5' fill='white'/%3E%3C/svg%3E">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="QuantaByte">
+<meta property="og:title" content="RDK X5 IMX708 driver: Camera Module 3 on the RDK X5">
+<meta property="og:description" content="Run the Raspberry Pi Camera Module 3 (Sony IMX708) on the D-Robotics RDK X5. Open source driver, capture service and autofocus, by QuantaByte.">
+<meta property="og:url" content="https://quantabytepk.github.io/rdk-x5-imx708/">
+<meta property="og:image" content="https://quantabytepk.github.io/rdk-x5-imx708/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://quantabytepk.github.io/rdk-x5-imx708/og.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"rdk-x5-imx708",
-"description":"Raspberry Pi Camera Module 3 (Sony IMX708) driver for the D-Robotics RDK X5",
-"codeRepository":"https://github.com/QuantabytePK/rdk-x5-imx708","programmingLanguage":["C","Python","Shell"],
-"author":{"@type":"Organization","name":"QuantaByte Private Limited"}}
+{"@context":"https://schema.org","@graph":[
+ {"@type":"Organization","@id":"https://quantabyte.org/#org","name":"QuantaByte","legalName":"QuantaByte Private Limited",
+  "url":"https://quantabyte.org","slogan":"Coding the Future Byte by Byte",
+  "sameAs":["https://www.linkedin.com/company/quantabyte","https://github.com/QuantabytePK"],
+  "founder":{"@id":"https://quantabyte.org/connect/malikzohaibmustafa#person"}},
+ {"@type":"Person","@id":"https://quantabyte.org/connect/malikzohaibmustafa#person","name":"Malik Zohaib Mustafa",
+  "jobTitle":"Founder","worksFor":{"@id":"https://quantabyte.org/#org"},"url":"https://quantabyte.org/connect/malikzohaibmustafa",
+  "image":"https://github.com/zohaibcodes9642.png",
+  "sameAs":["https://www.linkedin.com/in/malikzohaibmustafa","https://www.instagram.com/malikzohaibmustafa","https://github.com/zohaibcodes9642"]},
+ {"@type":"SoftwareSourceCode","name":"rdk-x5-imx708: RDK X5 IMX708 camera driver",
+  "description":"Raspberry Pi Camera Module 3 (Sony IMX708) driver for the D-Robotics RDK X5",
+  "codeRepository":"https://github.com/QuantabytePK/rdk-x5-imx708","license":"https://www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+  "programmingLanguage":["C","Python","Shell"],"runtimePlatform":"RDK OS 3.5 (Ubuntu 22.04)",
+  "author":{"@id":"https://quantabyte.org/connect/malikzohaibmustafa#person"},"publisher":{"@id":"https://quantabyte.org/#org"}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"Does the Raspberry Pi Camera Module 3 work on the RDK X5?","acceptedAnswer":{"@type":"Answer","text":"Yes, with this open source driver. Out of the box the RDK X5 does not support the IMX708 sensor."}},
+  {"@type":"Question","name":"Does autofocus work on the RDK X5 with the IMX708?","acceptedAnswer":{"@type":"Answer","text":"The lens motor is driven from the X5 (positions 0 to 1023). Focus is found by stepping the lens and measuring sharpness; an example is included."}},
+  {"@type":"Question","name":"What resolutions does the IMX708 run at on the RDK X5?","acceptedAnswer":{"@type":"Answer","text":"4096 x 2592 at 14 fps and 2304 x 1296 at 30 fps. The X5 image processor gives no frames above 4096 pixels wide."}}]}
+]}
 </script>
 <style>
-:root{--bg:#fff;--fg:#1a1a1a;--muted:#555;--accent:#0b6b3a;--card:#f4f6f5}
-@media (prefers-color-scheme:dark){:root{--bg:#121413;--fg:#e8ece9;--muted:#a3aaa6;--accent:#5fcf93;--card:#1d211f}}
-body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.6 system-ui,-apple-system,Segoe UI,sans-serif}
-main{max-width:760px;margin:0 auto;padding:40px 16px}
-h1{font-size:1.9rem;line-height:1.25;margin:0 0 12px}
-h2{font-size:1.25rem;margin-top:2em}
-p,li{color:var(--fg)} .lead{color:var(--muted);font-size:1.1rem}
-a{color:var(--accent)} code,pre{background:var(--card);border-radius:6px}
-code{padding:2px 5px} pre{padding:14px;overflow-x:auto}
-.btn{display:inline-block;margin-top:12px;padding:10px 18px;border-radius:8px;background:var(--accent);color:var(--bg);text-decoration:none;font-weight:600}
-table{border-collapse:collapse;width:100%} td{border-top:1px solid var(--card);padding:6px 4px;vertical-align:top}
+:root{--bg:#f6f8f7;--surface:#fff;--fg:#14201a;--muted:#55635c;--line:#e2e8e4;--accent:#1f7a4d;--accent-ink:#fff;--soft:#e8f3ed;--code:#eef2f0}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1411;--surface:#161e1a;--fg:#e6ece8;--muted:#9aa8a0;--line:#25302a;--accent:#5fcf93;--accent-ink:#0e1411;--soft:#1a2b22;--code:#1c2520}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:980px;margin:0 auto;padding:0 16px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;gap:12px;flex-wrap:wrap}
+nav .brand{font-weight:700;text-decoration:none;color:var(--fg)}
+nav .links a{margin-left:18px;text-decoration:none;color:var(--muted);font-weight:500}
+.hero{padding:48px 0 32px}
+.pill{display:inline-block;background:var(--soft);color:var(--accent);font-weight:700;font-size:.8rem;letter-spacing:.06em;padding:5px 12px;border-radius:99px}
+h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.12;margin:16px 0 14px;letter-spacing:-.02em}
+.lead{font-size:1.15rem;color:var(--muted);max-width:720px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--fg);background:var(--surface)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.hero img{width:100%;border-radius:16px;margin-top:36px;border:1px solid var(--line)}
+section{padding:36px 0}
+h2{font-size:1.6rem;margin:0 0 18px;letter-spacing:-.01em}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{margin:0 0 6px;font-size:1.05rem}
+.card p{margin:0;color:var(--muted);font-size:.95rem}
+.ok{color:var(--accent);font-weight:700}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top}
+tr:first-child td{border-top:none}
+pre{background:var(--code);padding:16px;border-radius:12px;overflow-x:auto;font-size:.92rem}
+code{background:var(--code);padding:2px 6px;border-radius:6px;font-size:.92em}
+pre code{padding:0;background:none}
+.person{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.person img{width:104px;height:104px;border-radius:50%;border:3px solid var(--soft)}
+.person .who{flex:1;min-width:220px}
+.person .who h3{margin:0;font-size:1.35rem}
+.person .who p{margin:4px 0 0;color:var(--muted)}
+.links-grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin-top:20px}
+.link-card{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:12px;border:1px solid var(--line);background:var(--surface);text-decoration:none;color:var(--fg);transition:border-color .15s,transform .15s}
+.link-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+.link-card svg{width:28px;height:28px;flex:none}
+.link-card span{display:block;font-weight:600;line-height:1.2}
+.link-card small{display:block;color:var(--muted);font-size:.82rem;overflow-wrap:anywhere}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+summary{font-weight:600;cursor:pointer}
+details p{color:var(--muted);margin:10px 0 0}
+footer{border-top:1px solid var(--line);padding:28px 0 40px;color:var(--muted);font-size:.92rem}
 </style>
 </head>
-<body><main>
-<h1>RDK X5 IMX708 driver: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5</h1>
-<p class="lead">The RDK X5 does not ship a driver for the Sony IMX708 sensor of the Raspberry Pi Camera Module 3. This open source project adds one: a sensor driver for the X5 camera framework, ISP tuning, a capture service that keeps the camera streaming, and control of the autofocus lens.</p>
-<a class="btn" href="https://github.com/QuantabytePK/rdk-x5-imx708">Get it on GitHub</a>
+<body>
+<div class="wrap">
+<nav>
+  <a class="brand" href="https://quantabyte.org">QuantaByte</a>
+  <div class="links"><a href="#install">Install</a><a href="#author">Author</a><a href="https://github.com/QuantabytePK/rdk-x5-imx708">GitHub</a></div>
+</nav>
 
-<h2>What works</h2>
-<table>
-<tr><td>4096 x 2592 at 14 fps (full resolution)</td><td>works</td></tr>
-<tr><td>2304 x 1296 at 30 fps (2x2 binned, full field of view)</td><td>works</td></tr>
-<tr><td>Auto exposure and auto white balance (board ISP)</td><td>works</td></tr>
-<tr><td>Autofocus lens motor, positions 0 to 1023</td><td>works</td></tr>
-<tr><td>Contrast autofocus</td><td>example included</td></tr>
-</table>
+<header class="hero">
+  <span class="pill">OPEN SOURCE · GPL v2</span>
+  <h1>RDK X5 IMX708 driver: the Raspberry Pi Camera Module 3 on the D-Robotics RDK X5</h1>
+  <p class="lead">The RDK X5 ships with drivers for a fixed list of camera sensors, and the Sony IMX708 of the Raspberry Pi Camera Module 3 is not one of them. This project adds it: a sensor driver for the X5 camera framework, ISP tuning, a capture service that keeps the camera streaming, and control of the autofocus lens.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/QuantabytePK/rdk-x5-imx708">View on GitHub</a>
+    <a class="btn" href="#install">Install in 3 commands</a>
+  </div>
+  <img src="og.png" width="1200" height="630" alt="RDK X5 plus IMX708: Raspberry Pi Camera Module 3 on the D-Robotics RDK X5">
+</header>
 
-<h2>Tested on</h2>
-<p>RDK X5 (8 GB), RDK OS 3.5.0 (Ubuntu 22.04, kernel 6.1.83), Camera Module 3 standard lens, with the 22-pin to 15-pin ribbon, first CSI connector.</p>
+<section>
+  <h2>What you get</h2>
+  <div class="grid">
+    <div class="card"><h3>Sensor driver</h3><p>IMX708 support for the X5 camera framework, built on the board with its own compiler.</p></div>
+    <div class="card"><h3>ISP tuning</h3><p>Image processor tuning files, so auto exposure and auto white balance work on the X5 ISP.</p></div>
+    <div class="card"><h3>Capture service</h3><p>A small service that keeps the camera streaming and starts at every boot.</p></div>
+    <div class="card"><h3>Autofocus lens</h3><p>Drive the Camera Module 3 lens motor (0 to 1023) with a contrast autofocus example.</p></div>
+  </div>
+</section>
 
-<h2>Install</h2>
-<p>Full steps, troubleshooting (including the <code>phy_fatal</code> no-picture error from a half-seated ribbon) and notes are in the <a href="https://github.com/QuantabytePK/rdk-x5-imx708#readme">README</a>.</p>
+<section>
+  <h2>What works</h2>
+  <table>
+    <tr><td>4096 x 2592 at 14 fps (full resolution, centre crop)</td><td class="ok">works</td></tr>
+    <tr><td>2304 x 1296 at 30 fps (2x2 binned, whole field of view)</td><td class="ok">works</td></tr>
+    <tr><td>Auto exposure, auto white balance</td><td class="ok">works</td></tr>
+    <tr><td>Lens motor, focus position 0 to 1023</td><td class="ok">works</td></tr>
+    <tr><td>Autofocus</td><td>by the client: example included</td></tr>
+    <tr><td>4608 x 2592 full sensor width</td><td>sensor works; the X5 ISP gives no frames above 4096 wide</td></tr>
+  </table>
+  <p style="color:var(--muted)">Tested on RDK X5 (8 GB), RDK OS 3.5.0 (Ubuntu 22.04, kernel 6.1.83), <code>hobot-camera</code> 3.1.1, Camera Module 3 standard lens, first CSI connector.</p>
+</section>
 
-<h2>Common questions</h2>
-<p><strong>Does the Raspberry Pi Camera Module 3 work on the RDK X5?</strong> Yes, with this driver. Out of the box the RDK X5 does not support the IMX708.</p>
-<p><strong>Does autofocus work?</strong> The lens motor is driven from the X5; focus is found by stepping the lens and measuring sharpness. An example is included.</p>
-<p><strong>Why no 4608 px wide frames?</strong> The sensor and MIPI link deliver them, but the X5 image processor gives no frames above 4096 wide.</p>
+<section id="install">
+  <h2>Install</h2>
+  <p>You need the Camera Module 3, the 22-pin to 15-pin ribbon Raspberry Pi sells for the Pi 5 and Zero, and an RDK X5 with internet access for the first build. Push the ribbon fully home at both ends. Then, on the board:</p>
+<pre><code>git clone https://github.com/QuantabytePK/rdk-x5-imx708.git
+cd rdk-x5-imx708
+./install.sh</code></pre>
+  <p>The installer builds the driver and capture service, writes the ISP tuning files and starts the <code>imx708-csi</code> service. Full guide, checks and troubleshooting are in the <a href="https://github.com/QuantabytePK/rdk-x5-imx708#readme">README</a>.</p>
+</section>
 
-<p style="color:var(--muted);margin-top:3em">By QuantaByte Private Limited. Open source under the GPL v2; see the repository for licence details.</p>
-</main></body></html>
+<section>
+  <h2>Common questions</h2>
+  <details><summary>Does the Raspberry Pi Camera Module 3 work on the RDK X5?</summary><p>Yes, with this driver. Out of the box the RDK X5 does not support the IMX708.</p></details>
+  <details><summary>Does autofocus work?</summary><p>The lens motor is driven from the X5. Focus is found by stepping the lens and measuring sharpness; an example is included.</p></details>
+  <details><summary>I get no picture and <code>phy_fatal</code> errors.</summary><p>Almost always a half-seated ribbon. Power off, re-seat it fully at both ends and try again.</p></details>
+  <details><summary>Can I use it with ROS 2?</summary><p>Stop any other camera node first: only one pipeline can own the CSI connector and the image processor. The README shows how to read frames from your own program.</p></details>
+</section>
+
+<section id="author">
+  <h2>Made by QuantaByte</h2>
+  <div class="card">
+    <div class="person">
+      <img src="https://github.com/zohaibcodes9642.png?size=208" width="104" height="104" alt="Malik Zohaib Mustafa">
+      <div class="who">
+        <h3>Malik Zohaib Mustafa</h3>
+        <p>Founder of QuantaByte. Did the port and the bring-up of the IMX708 on the RDK X5, and published it so it saves others the weeks it took.</p>
+      </div>
+    </div>
+    <div class="links-grid">
+      <a class="link-card" href="https://quantabyte.org/connect/malikzohaibmustafa" rel="me">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+        <div><span>Connect</span><small>quantabyte.org/connect</small></div></a>
+      <a class="link-card" href="https://www.linkedin.com/in/malikzohaibmustafa" rel="me">
+        <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0A66C2"/><path fill="#fff" d="M7 10h2.5v7H7zM8.2 6.2a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8zM11 10h2.4v1c.4-.7 1.3-1.2 2.4-1.2 2.3 0 2.7 1.5 2.7 3.4V17H16v-3.4c0-.9 0-2-1.2-2s-1.4.9-1.4 1.9V17H11z"/></svg>
+        <div><span>LinkedIn</span><small>in/malikzohaibmustafa</small></div></a>
+      <a class="link-card" href="https://www.instagram.com/malikzohaibmustafa" rel="me">
+        <svg viewBox="0 0 24 24"><defs><linearGradient id="ig" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#F58529"/><stop offset=".5" stop-color="#DD2A7B"/><stop offset="1" stop-color="#8134AF"/></linearGradient></defs><rect width="24" height="24" rx="6" fill="url(#ig)"/><rect x="6" y="6" width="12" height="12" rx="4" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="#fff" stroke-width="1.8"/><circle cx="16.3" cy="7.7" r="1" fill="#fff"/></svg>
+        <div><span>Instagram</span><small>@malikzohaibmustafa</small></div></a>
+      <a class="link-card" href="https://github.com/zohaibcodes9642" rel="me">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5a10.5 10.5 0 0 0-3.3 20.5c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.4-3.5-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7 0-.6 0-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.8-1.2-4.8-5.2 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1a10 10 0 0 1 5.3 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.5.1 2.8.7.7 1.1 1.7 1.1 2.8 0 4-2.5 4.9-4.8 5.2.4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg>
+        <div><span>GitHub</span><small>zohaibcodes9642</small></div></a>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3 style="font-size:1.25rem">QuantaByte</h3>
+    <p style="margin-top:6px">QuantaByte Private Limited builds software and hardware: from embedded vision on boards like the RDK X5 to apps and products. <em>Coding the Future Byte by Byte.</em></p>
+    <div class="links-grid">
+      <a class="link-card" href="https://quantabyte.org">
+        <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#1f7a4d"/><text x="12" y="16.5" text-anchor="middle" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#fff">QB</text></svg>
+        <div><span>Website</span><small>quantabyte.org</small></div></a>
+      <a class="link-card" href="https://www.linkedin.com/company/quantabyte">
+        <svg viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#0A66C2"/><path fill="#fff" d="M7 10h2.5v7H7zM8.2 6.2a1.4 1.4 0 1 1 0 2.8 1.4 1.4 0 0 1 0-2.8zM11 10h2.4v1c.4-.7 1.3-1.2 2.4-1.2 2.3 0 2.7 1.5 2.7 3.4V17H16v-3.4c0-.9 0-2-1.2-2s-1.4.9-1.4 1.9V17H11z"/></svg>
+        <div><span>LinkedIn</span><small>company/quantabyte</small></div></a>
+      <a class="link-card" href="https://github.com/QuantabytePK">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1.5a10.5 10.5 0 0 0-3.3 20.5c.5.1.7-.2.7-.5v-1.8c-2.9.6-3.5-1.4-3.5-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7 0-.6 0-.6 1 .1 1.6 1.1 1.6 1.1.9 1.6 2.5 1.1 3.1.9.1-.7.4-1.1.7-1.4-2.3-.3-4.8-1.2-4.8-5.2 0-1.1.4-2.1 1.1-2.8-.1-.3-.5-1.4.1-2.8 0 0 .9-.3 2.9 1.1a10 10 0 0 1 5.3 0c2-1.4 2.9-1.1 2.9-1.1.6 1.4.2 2.5.1 2.8.7.7 1.1 1.7 1.1 2.8 0 4-2.5 4.9-4.8 5.2.4.3.7 1 .7 2v2.9c0 .3.2.6.7.5A10.5 10.5 0 0 0 12 1.5z"/></svg>
+        <div><span>GitHub</span><small>QuantabytePK</small></div></a>
+    </div>
+  </div>
+</section>
+</div>
+<footer><div class="wrap">© QuantaByte Private Limited. rdk-x5-imx708 is open source under the GPL v2. Raspberry Pi is a trademark of Raspberry Pi Ltd; RDK and D-Robotics belong to their owners. This project is not affiliated with either.</div></footer>
+</body>
+</html>
